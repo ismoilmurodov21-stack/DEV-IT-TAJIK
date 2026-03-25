@@ -1,0 +1,819 @@
+<!DOCTYPE html>
+<html lang="tg">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Системаи мудирияти мутахассисон | Админ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --bg-gradient: linear-gradient(145deg, #eef2f7 0%, #dee4ed 100%);
+            --card-bg: rgba(255, 255, 255, 0.96);
+            --text-primary: #1f2e45;
+            --text-secondary: #2c5a7a;
+            --border-light: #e2edf7;
+            --input-bg: #fefefe;
+            --header-bg: #ffffffcc;
+            --shadow: 0 12px 28px rgba(0,0,0,0.08);
+            --btn-primary: #2c7da0;
+            --btn-primary-hover: #1f6382;
+            --admin-badge: #f59e0b;
+        }
+
+        body.dark {
+            --bg-gradient: linear-gradient(145deg, #1a2a3a 0%, #0f1a24 100%);
+            --card-bg: #2d3e4e;
+            --text-primary: #eef2ff;
+            --text-secondary: #b9d0e7;
+            --border-light: #3e5568;
+            --input-bg: #1f2f3c;
+            --header-bg: #1e2e3ecc;
+            --shadow: 0 12px 28px rgba(0,0,0,0.3);
+            --btn-primary: #3b82f6;
+            --btn-primary-hover: #2563eb;
+            --admin-badge: #fbbf24;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            font-family: 'Inter', sans-serif;
+            color: var(--text-primary);
+            transition: background 0.3s, color 0.2s;
+            min-height: 100vh;
+        }
+
+        .top-bar {
+            background: var(--header-bg);
+            backdrop-filter: blur(12px);
+            padding: 0.8rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-bottom: 1px solid var(--border-light);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo h2 {
+            font-weight: 800;
+            background: linear-gradient(120deg, #3b82f6, #2c7da0);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+        }
+
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .theme-toggle {
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            cursor: pointer;
+            color: var(--text-secondary);
+            transition: 0.2s;
+        }
+
+        .theme-toggle:hover {
+            transform: scale(1.05);
+            color: var(--btn-primary);
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .auth-buttons button, .logout-btn {
+            background: var(--btn-primary);
+            color: white;
+            border: none;
+            padding: 0.4rem 1rem;
+            border-radius: 2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .auth-buttons button:hover, .logout-btn:hover {
+            background: var(--btn-primary-hover);
+        }
+
+        .user-greeting {
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 2rem auto;
+            padding: 0 1.5rem;
+        }
+
+        .form-card {
+            background: var(--card-bg);
+            border-radius: 2rem;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2.5rem;
+            box-shadow: var(--shadow);
+            transition: background 0.2s;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.2rem;
+            margin-bottom: 1rem;
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .input-group label {
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+
+        .input-group input, .input-group select {
+            padding: 0.7rem 1rem;
+            border-radius: 1.2rem;
+            border: 1px solid var(--border-light);
+            background: var(--input-bg);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.9rem;
+            transition: 0.2s;
+        }
+
+        .input-group input:focus, .input-group select:focus {
+            outline: none;
+            border-color: var(--btn-primary);
+            box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
+        }
+
+        .languages-checkboxes {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.8rem;
+            margin-top: 0.3rem;
+        }
+
+        .lang-check {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--input-bg);
+            padding: 0.3rem 0.9rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            border: 1px solid var(--border-light);
+        }
+
+        .form-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+            margin-top: 1rem;
+        }
+
+        button {
+            font-family: inherit;
+            font-weight: 600;
+            border: none;
+            background: var(--btn-primary);
+            color: white;
+            padding: 0.7rem 1.5rem;
+            border-radius: 2rem;
+            cursor: pointer;
+            transition: 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        button:hover {
+            background: var(--btn-primary-hover);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #94a3b8;
+        }
+        .btn-secondary:hover { background: #6c7a91; }
+
+        .stats {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+        .counter {
+            font-weight: 600;
+            background: var(--card-bg);
+            padding: 0.3rem 1rem;
+            border-radius: 40px;
+            box-shadow: var(--shadow);
+        }
+
+        .people-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
+            gap: 1.8rem;
+        }
+
+        .person-card {
+            background: var(--card-bg);
+            border-radius: 1.8rem;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .person-card:hover {
+            transform: translateY(-4px);
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            flex: 1;
+        }
+
+        .person-name {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 0.3rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            flex-wrap: wrap;
+        }
+
+        .admin-badge {
+            background: var(--admin-badge);
+            color: #1f2e45;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.2rem 0.7rem;
+            border-radius: 40px;
+            display: inline-block;
+        }
+
+        .person-profession {
+            display: inline-block;
+            background: rgba(59,130,246,0.2);
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--btn-primary);
+            margin: 0.5rem 0;
+        }
+
+        .person-exp {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin: 0.5rem 0;
+        }
+
+        .languages {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin: 1rem 0;
+        }
+
+        .lang-tag {
+            background: var(--input-bg);
+            padding: 0.2rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-light);
+        }
+
+        .contact-buttons {
+            display: flex;
+            gap: 0.8rem;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .contact-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--input-bg);
+            padding: 0.5rem 1rem;
+            border-radius: 2rem;
+            font-size: 0.8rem;
+            text-decoration: none;
+            color: var(--text-primary);
+            font-weight: 500;
+            transition: 0.2s;
+            border: 1px solid var(--border-light);
+        }
+
+        .telegram-btn { background: #27A0E0; color: white; border: none; }
+        .whatsapp-btn { background: #25D366; color: white; border: none; }
+        .telegram-btn:hover, .whatsapp-btn:hover { filter: brightness(0.92); }
+
+        .card-actions {
+            display: flex;
+            gap: 0.8rem;
+            justify-content: flex-end;
+            border-top: 1px solid var(--border-light);
+            padding: 1rem 1.5rem 1.2rem;
+            background: var(--card-bg);
+        }
+
+        .edit-btn, .delete-btn {
+            background: none;
+            padding: 0.3rem 0.8rem;
+            font-size: 0.8rem;
+            background: #e9ecef;
+            color: #2c5a7a;
+        }
+        .delete-btn { background: #fee2e2; color: #b91c1c; }
+        body.dark .edit-btn { background: #3e5568; color: #cbd5e1; }
+        body.dark .delete-btn { background: #5f2a2a; color: #fecaca; }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(4px);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 2rem;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: var(--shadow);
+        }
+        .modal-content h3 {
+            margin-bottom: 1rem;
+        }
+        .modal-content input {
+            width: 100%;
+            margin: 0.5rem 0;
+            padding: 0.7rem;
+            border-radius: 1rem;
+            border: 1px solid var(--border-light);
+            background: var(--input-bg);
+            color: var(--text-primary);
+        }
+        .modal-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 640px) {
+            .top-bar { padding: 0.8rem 1rem; }
+            .container { padding: 0 1rem; }
+            .form-card { padding: 1rem; }
+            .people-grid { grid-template-columns: 1fr; }
+        }
+        footer {
+            text-align: center;
+            margin-top: 2.5rem;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+        }
+    </style>
+</head>
+<body>
+<div class="top-bar">
+    <div class="logo"><h2><i class="fas fa-users"></i> DEV IT TAJIKISTAN</h2></div>
+    <div class="user-area">
+        <button class="theme-toggle" id="themeToggle"><i class="fas fa-moon"></i></button>
+        <div id="authSection"></div>
+    </div>
+</div>
+
+<div class="container">
+    <div id="formContainer" style="display: none;">
+        <div class="form-card">
+            <h3 id="formTitle"><i class="fas fa-user-plus"></i> Иловаи мутахассиси нав</h3>
+            <div class="form-grid">
+                <div class="input-group"><label>Ном *</label><input type="text" id="firstName" placeholder="Масалан: Али"></div>
+                <div class="input-group"><label>Фамилия *</label><input type="text" id="lastName" placeholder="Масалан: Каримов"></div>
+                <div class="input-group"><label>Касб *</label><select id="profession">
+                    <option value="web-site">🌐 Веб-сайтсоз (Web Developer)</option>
+                    <option value="android">📱 Android Creator</option>
+                    <option value="ios">🍏 IOS Creator</option>
+                    <option value="full-app">⚡ Full Application</option>
+                    <option value="bot">🤖 Bot Developer</option>
+                </select></div>
+                <div class="input-group"><label>Солҳои корӣ</label><input type="number" id="experienceYears" min="0" value="1"></div>
+                <div class="input-group languages-group"><label>Забонҳои барномасозӣ</label><div class="languages-checkboxes" id="languagesCheckboxes"></div></div>
+                <div class="input-group"><label>Telegram (username)</label><input type="text" id="telegram" placeholder="@username ё username"></div>
+                <div class="input-group"><label>WhatsApp (рақам)</label><input type="tel" id="whatsapp" placeholder="992901234567"></div>
+            </div>
+            <div class="form-buttons">
+                <button id="saveBtn"><i class="fas fa-save"></i> Захира</button>
+                <button id="cancelBtn" class="btn-secondary" style="display:none;"><i class="fas fa-times"></i> Бекор</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="stats">
+        <span class="counter" id="totalCount">0 нафар</span>
+        <span><i class="fas fa-database"></i> Админ ҳама сабтҳоро идора мекунад</span>
+    </div>
+    <div class="people-grid" id="peopleGrid"></div>
+    <footer><i class="far fa-copyright"></i> 2026 DEV IT TAJIKISTAN| Админ: MARKXHEX | Веб-сайт барои ёфтани кор.</footer>
+</div>
+
+<!-- Auth Modals -->
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <h3>Воридшавӣ</h3>
+        <input type="text" id="loginUsername" placeholder="Номи корбарӣ">
+        <input type="password" id="loginPassword" placeholder="Парол">
+        <div class="modal-buttons">
+            <button id="closeLoginBtn" class="btn-secondary">Бекор</button>
+            <button id="confirmLoginBtn">Ворид шавед</button>
+        </div>
+        <p style="margin-top:0.5rem; font-size:0.8rem;">ҳисоб надоред? <a href="#" id="switchToRegister">Сабти ном</a></p>
+    </div>
+</div>
+<div id="registerModal" class="modal">
+    <div class="modal-content">
+        <h3>Сабти ном</h3>
+        <input type="text" id="regUsername" placeholder="Номи корбарӣ">
+        <input type="password" id="regPassword" placeholder="Парол">
+        <div class="modal-buttons">
+            <button id="closeRegBtn" class="btn-secondary">Бекор</button>
+            <button id="confirmRegBtn">Сабти ном</button>
+        </div>
+        <p style="margin-top:0.5rem; font-size:0.8rem;">Аллакай ҳисоб доред? <a href="#" id="switchToLogin">Ворид шавед</a></p>
+    </div>
+</div>
+
+<script>
+    // ---------- CONSTANTS ----------
+    const ADMIN_USERNAME = "admin";
+    const ADMIN_PASSWORD = "mark201314";
+    const ADMIN_ID = 1;
+
+    let users = [];
+    let entries = [];
+    let currentUserId = null;
+    let editEntryId = null;
+
+    const LANGUAGES = ["HTML/CSS", "JavaScript", "Python", "PHP", "Java", "Kotlin", "Swift", "C#", "Dart (Flutter)", "React Native", "SQL", "Go"];
+
+    // DOM elements
+    const formContainer = document.getElementById('formContainer');
+    const firstNameInp = document.getElementById('firstName');
+    const lastNameInp = document.getElementById('lastName');
+    const professionSelect = document.getElementById('profession');
+    const experienceInp = document.getElementById('experienceYears');
+    const telegramInp = document.getElementById('telegram');
+    const whatsappInp = document.getElementById('whatsapp');
+    const languagesContainer = document.getElementById('languagesCheckboxes');
+    const saveBtn = document.getElementById('saveBtn');
+    const cancelBtn = document.getElementById('cancelBtn');
+    const formTitle = document.getElementById('formTitle');
+    const peopleGrid = document.getElementById('peopleGrid');
+    const totalCountSpan = document.getElementById('totalCount');
+    const authSection = document.getElementById('authSection');
+
+    // Theme
+    const themeToggle = document.getElementById('themeToggle');
+    function updateThemeIcon() {
+        const isDark = document.body.classList.contains('dark');
+        themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
+    }
+    if(localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+    updateThemeIcon();
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+        updateThemeIcon();
+    });
+
+    // Data persistence
+    function saveData() {
+        localStorage.setItem('dev_users', JSON.stringify(users));
+        localStorage.setItem('dev_entries', JSON.stringify(entries));
+    }
+
+    function loadData() {
+        const storedUsers = localStorage.getItem('dev_users');
+        const storedEntries = localStorage.getItem('dev_entries');
+        if(storedUsers) users = JSON.parse(storedUsers);
+        else users = [];
+
+        if(storedEntries) entries = JSON.parse(storedEntries);
+        else entries = [];
+
+        // Ensure admin exists
+        const adminExists = users.some(u => u.id === ADMIN_ID && u.username === ADMIN_USERNAME);
+        if(!adminExists) {
+            users = users.filter(u => u.id !== ADMIN_ID); // remove any conflicting
+            users.unshift({ id: ADMIN_ID, username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
+            saveData();
+        }
+    }
+
+    // Helper: check if current user is admin
+    function isAdmin() {
+        return currentUserId === ADMIN_ID;
+    }
+
+    // Language checkboxes
+    function renderLanguagesCheckboxes(selected = []) {
+        languagesContainer.innerHTML = '';
+        LANGUAGES.forEach(lang => {
+            const checked = selected.includes(lang);
+            const div = document.createElement('div');
+            div.className = 'lang-check';
+            div.innerHTML = `<input type="checkbox" value="${lang}" ${checked ? 'checked' : ''}><span>${lang}</span>`;
+            languagesContainer.appendChild(div);
+        });
+    }
+
+    function getSelectedLanguages() {
+        const checkboxes = languagesContainer.querySelectorAll('input[type="checkbox"]');
+        return Array.from(checkboxes).filter(cb => cb.checked).map(cb => cb.value);
+    }
+
+    function getFormData() {
+        return {
+            firstName: firstNameInp.value.trim(),
+            lastName: lastNameInp.value.trim(),
+            profession: professionSelect.value,
+            experienceYears: parseInt(experienceInp.value) || 0,
+            languages: getSelectedLanguages(),
+            telegram: telegramInp.value.trim(),
+            whatsapp: whatsappInp.value.trim()
+        };
+    }
+
+    function resetForm() {
+        firstNameInp.value = '';
+        lastNameInp.value = '';
+        professionSelect.value = 'web-site';
+        experienceInp.value = '1';
+        telegramInp.value = '';
+        whatsappInp.value = '';
+        renderLanguagesCheckboxes([]);
+        editEntryId = null;
+        formTitle.innerHTML = '<i class="fas fa-user-plus"></i> Иловаи мутахассиси нав';
+        cancelBtn.style.display = 'none';
+    }
+
+    function fillFormForEdit(entry) {
+        firstNameInp.value = entry.firstName;
+        lastNameInp.value = entry.lastName;
+        professionSelect.value = entry.profession;
+        experienceInp.value = entry.experienceYears;
+        telegramInp.value = entry.telegram;
+        whatsappInp.value = entry.whatsapp;
+        renderLanguagesCheckboxes(entry.languages);
+        editEntryId = entry.id;
+        formTitle.innerHTML = '<i class="fas fa-edit"></i> Вироиши маълумот';
+        cancelBtn.style.display = 'inline-flex';
+    }
+
+    function saveEntry() {
+        if (!currentUserId) { alert("Лутфан аввал ворид шавед"); return; }
+        const data = getFormData();
+        if (!data.firstName || !data.lastName || !data.telegram || !data.whatsapp) {
+            alert("Лутфан ҳамаи чизҳоро ҳатмиро пур кунед (ном, фамилия, Telegram, WhatsApp)");
+            return;
+        }
+        if (editEntryId !== null) {
+            const index = entries.findIndex(e => e.id === editEntryId);
+            if (index === -1) { alert("Сабт ёфт нашуд"); return; }
+            const entry = entries[index];
+            // Permission: admin or owner
+            if (!isAdmin() && entry.userId !== currentUserId) {
+                alert("Шумо наметавонед ин сабтро вироиш кунед");
+                return;
+            }
+            entries[index] = { ...entry, ...data, id: editEntryId, userId: entry.userId }; // preserve original owner
+            saveData();
+            resetForm();
+            renderGrid();
+        } else {
+            const newId = Date.now();
+            entries.push({ id: newId, userId: currentUserId, ...data });
+            saveData();
+            resetForm();
+            renderGrid();
+        }
+    }
+
+    function deleteEntry(entryId) {
+        if (!currentUserId) return;
+        const entry = entries.find(e => e.id === entryId);
+        if (!entry) return;
+        if (!isAdmin() && entry.userId !== currentUserId) {
+            alert("Шумо наметавонед ин сабтро нест кунед");
+            return;
+        }
+        if (confirm("Оё боварӣ доред, ки ин сабтро нест мекунед?")) {
+            entries = entries.filter(e => e.id !== entryId);
+            saveData();
+            if (editEntryId === entryId) resetForm();
+            renderGrid();
+        }
+    }
+
+    function renderGrid() {
+        if (entries.length === 0) {
+            peopleGrid.innerHTML = `<div style="text-align:center; padding:2rem; background:var(--card-bg); border-radius:2rem;">Ҳеҷ мутахассисе нест. Аввал шахсро илова кунед.</div>`;
+            totalCountSpan.innerText = `0 нафар`;
+            return;
+        }
+        totalCountSpan.innerText = `${entries.length} нафар`;
+        let html = '';
+        entries.forEach(entry => {
+            const fullName = `${entry.firstName} ${entry.lastName}`;
+            let profDisplay = '';
+            switch(entry.profession) {
+                case 'web-site': profDisplay = '🌐 Веб-сайтсоз'; break;
+                case 'android': profDisplay = '📱 Android Creator'; break;
+                case 'ios': profDisplay = '🍏 IOS Creator'; break;
+                case 'full-app': profDisplay = '⚡ Full Application'; break;
+                case 'bot': profDisplay = '🤖 Bot Developer'; break;
+                default: profDisplay = entry.profession;
+            }
+            const langTags = entry.languages.map(l => `<span class="lang-tag">${escapeHtml(l)}</span>`).join('');
+            const tgLink = `https://t.me/${entry.telegram.replace('@', '')}`;
+            const waLink = `https://wa.me/${entry.whatsapp.replace(/\D/g, '')}`;
+            const canEdit = isAdmin() || entry.userId === currentUserId;
+            const isOwnerAdmin = entry.userId === ADMIN_ID;
+            html += `
+                <div class="person-card">
+                    <div class="card-body">
+                        <div class="person-name">
+                            ${escapeHtml(fullName)}
+                            ${isOwnerAdmin ? '<span class="admin-badge"><i class="fas fa-crown"></i> Админ</span>' : ''}
+                        </div>
+                        <div class="person-profession">${profDisplay}</div>
+                        <div class="person-exp"><i class="fas fa-calendar-alt"></i> Таҷриба: ${entry.experienceYears} сол</div>
+                        <div class="languages">${langTags || '<span style="font-size:0.7rem;">Забон интихоб нашудааст</span>'}</div>
+                        <div class="contact-buttons">
+                            <a href="${tgLink}" target="_blank" class="contact-btn telegram-btn"><i class="fab fa-telegram-plane"></i> Telegram</a>
+                            <a href="${waLink}" target="_blank" class="contact-btn whatsapp-btn"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                        </div>
+                    </div>
+                    ${canEdit ? `
+                    <div class="card-actions">
+                        <button class="edit-btn" data-id="${entry.id}"><i class="fas fa-pen"></i> Вироиш</button>
+                        <button class="delete-btn" data-id="${entry.id}"><i class="fas fa-trash"></i> Нест</button>
+                    </div>
+                    ` : ''}
+                </div>
+            `;
+        });
+        peopleGrid.innerHTML = html;
+        document.querySelectorAll('.edit-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = parseInt(btn.dataset.id);
+                const entry = entries.find(e => e.id === id);
+                if (entry && (isAdmin() || entry.userId === currentUserId)) {
+                    fillFormForEdit(entry);
+                    formContainer.scrollIntoView({ behavior: 'smooth' });
+                } else alert("Шумо наметавонед ин сабтро вироиш кунед");
+            });
+        });
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = parseInt(btn.dataset.id);
+                deleteEntry(id);
+            });
+        });
+    }
+
+    function escapeHtml(str) { 
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m){
+            if(m === '&') return '&amp;';
+            if(m === '<') return '&lt;';
+            if(m === '>') return '&gt;';
+            return m;
+        });
+    }
+
+    // Auth UI
+    function updateAuthUI() {
+        if (currentUserId) {
+            const user = users.find(u => u.id === currentUserId);
+            const adminNote = isAdmin() ? ' (Админ)' : '';
+            authSection.innerHTML = `<span class="user-greeting"> ${escapeHtml(user.username)} ${adminNote}</span><button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Баромад</button>`;
+            document.getElementById('logoutBtn').addEventListener('click', () => { 
+                currentUserId = null; 
+                updateAuthUI(); 
+                formContainer.style.display = 'none'; 
+                resetForm(); 
+                renderGrid(); 
+            });
+            formContainer.style.display = 'block';
+        } else {
+            authSection.innerHTML = `<button id="showLoginBtn"><i class="fas fa-sign-in-alt"></i> Воридшавӣ</button><button id="showRegisterBtn"><i class="fas fa-user-plus"></i> Сабти ном</button>`;
+            document.getElementById('showLoginBtn').addEventListener('click', () => showModal('login'));
+            document.getElementById('showRegisterBtn').addEventListener('click', () => showModal('register'));
+            formContainer.style.display = 'none';
+        }
+    }
+
+    function showModal(type) {
+        if (type === 'login') document.getElementById('loginModal').style.display = 'flex';
+        else document.getElementById('registerModal').style.display = 'flex';
+    }
+    function hideModals() { 
+        document.getElementById('loginModal').style.display = 'none'; 
+        document.getElementById('registerModal').style.display = 'none'; 
+    }
+
+    function login(username, password) {
+        const user = users.find(u => u.username === username && u.password === password);
+        if (user) { 
+            currentUserId = user.id; 
+            updateAuthUI(); 
+            renderGrid(); 
+            hideModals(); 
+            resetForm(); 
+        } else {
+            alert("Номи корбарӣ ё парол нодуруст");
+        }
+    }
+
+    function register(username, password) {
+        if (!username.trim() || !password.trim()) {
+            alert("Лутфан номи корбарӣ ва паролро ворид кунед");
+            return;
+        }
+        if (users.find(u => u.username === username)) { 
+            alert("Ин номи корбарӣ аллакай вуҷуд дорад"); 
+            return; 
+        }
+        const newId = Date.now();
+        users.push({ id: newId, username, password });
+        saveData();
+        alert("Сабти ном муваффақиятом! Акнун ворид шавед.");
+        hideModals();
+        showModal('login');
+    }
+
+    // Event listeners for modals
+    document.getElementById('closeLoginBtn').onclick = () => hideModals();
+    document.getElementById('closeRegBtn').onclick = () => hideModals();
+    document.getElementById('confirmLoginBtn').onclick = () => { 
+        login(document.getElementById('loginUsername').value, document.getElementById('loginPassword').value); 
+    };
+    document.getElementById('confirmRegBtn').onclick = () => { 
+        register(document.getElementById('regUsername').value, document.getElementById('regPassword').value); 
+    };
+    document.getElementById('switchToRegister').onclick = (e) => { e.preventDefault(); hideModals(); showModal('register'); };
+    document.getElementById('switchToLogin').onclick = (e) => { e.preventDefault(); hideModals(); showModal('login'); };
+
+    saveBtn.addEventListener('click', saveEntry);
+    cancelBtn.addEventListener('click', resetForm);
+
+    function init() {
+        loadData();
+        renderLanguagesCheckboxes([]);
+        updateAuthUI();
+        renderGrid();
+    }
+    init();
+</script>
+</body>
+</html>
