@@ -3,16 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Системаи барномасозони Тоҷик</title>
+    <title>Системаи мудирияти мутахассисон | Firebase RTDB</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --bg-gradient: linear-gradient(145deg, #eef2f7 0%, #dee4ed 100%);
             --card-bg: rgba(255, 255, 255, 0.96);
@@ -26,7 +21,6 @@
             --btn-primary-hover: #1f6382;
             --admin-badge: #f59e0b;
         }
-
         body.dark {
             --bg-gradient: linear-gradient(145deg, #1a2a3a 0%, #0f1a24 100%);
             --card-bg: #2d3e4e;
@@ -40,7 +34,6 @@
             --btn-primary-hover: #2563eb;
             --admin-badge: #fbbf24;
         }
-
         body {
             background: var(--bg-gradient);
             font-family: 'Inter', sans-serif;
@@ -48,7 +41,6 @@
             transition: background 0.3s, color 0.2s;
             min-height: 100vh;
         }
-
         .top-bar {
             background: var(--header-bg);
             backdrop-filter: blur(12px);
@@ -63,7 +55,6 @@
             top: 0;
             z-index: 100;
         }
-
         .logo h2 {
             font-weight: 800;
             background: linear-gradient(120deg, #3b82f6, #2c7da0);
@@ -71,129 +62,8 @@
             -webkit-background-clip: text;
             color: transparent;
         }
-
-        .user-area {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .theme-toggle {
-            background: none;
-            border: none;
-            font-size: 1.4rem;
-            cursor: pointer;
-            color: var(--text-secondary);
-            transition: 0.2s;
-        }
-
-        .theme-toggle:hover {
-            transform: scale(1.05);
-            color: var(--btn-primary);
-        }
-
-        .auth-buttons {
-            display: flex;
-            gap: 0.6rem;
-        }
-
-        .auth-buttons button, .logout-btn {
-            background: var(--btn-primary);
-            color: white;
-            border: none;
-            padding: 0.4rem 1rem;
-            border-radius: 2rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
-        .auth-buttons button:hover, .logout-btn:hover {
-            background: var(--btn-primary-hover);
-        }
-
-        .user-greeting {
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-
-        .container {
-            max-width: 1400px;
-            margin: 2rem auto;
-            padding: 0 1.5rem;
-        }
-
-        .form-card {
-            background: var(--card-bg);
-            border-radius: 2rem;
-            padding: 1.5rem 2rem;
-            margin-bottom: 2.5rem;
-            box-shadow: var(--shadow);
-            transition: background 0.2s;
-        }
-
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.2rem;
-            margin-bottom: 1rem;
-        }
-
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-        }
-
-        .input-group label {
-            font-weight: 600;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
-
-        .input-group input, .input-group select {
-            padding: 0.7rem 1rem;
-            border-radius: 1.2rem;
-            border: 1px solid var(--border-light);
-            background: var(--input-bg);
-            color: var(--text-primary);
-            font-family: inherit;
-            font-size: 0.9rem;
-            transition: 0.2s;
-        }
-
-        .input-group input:focus, .input-group select:focus {
-            outline: none;
-            border-color: var(--btn-primary);
-            box-shadow: 0 0 0 3px rgba(59,130,246,0.2);
-        }
-
-        .languages-checkboxes {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.8rem;
-            margin-top: 0.3rem;
-        }
-
-        .lang-check {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            background: var(--input-bg);
-            padding: 0.3rem 0.9rem;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            border: 1px solid var(--border-light);
-        }
-
-        .form-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: flex-end;
-            margin-top: 1rem;
-        }
-
+        .user-area { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+        .theme-toggle { background: none; border: none; font-size: 1.4rem; cursor: pointer; color: var(--text-secondary); transition: 0.2s; }
         button {
             font-family: inherit;
             font-weight: 600;
@@ -208,38 +78,44 @@
             align-items: center;
             gap: 8px;
         }
-
-        button:hover {
-            background: var(--btn-primary-hover);
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: #94a3b8;
-        }
-        .btn-secondary:hover { background: #6c7a91; }
-
-        .stats {
-            display: flex;
-            justify-content: space-between;
-            align-items: baseline;
-            flex-wrap: wrap;
-            margin-bottom: 1.5rem;
-        }
-        .counter {
-            font-weight: 600;
+        button:hover { background: var(--btn-primary-hover); transform: translateY(-2px); }
+        .btn-secondary { background: #94a3b8; }
+        .container { max-width: 1400px; margin: 2rem auto; padding: 0 1.5rem; }
+        .form-card {
             background: var(--card-bg);
-            padding: 0.3rem 1rem;
-            border-radius: 40px;
+            border-radius: 2rem;
+            padding: 1.5rem 2rem;
+            margin-bottom: 2.5rem;
             box-shadow: var(--shadow);
+            transition: background 0.2s;
         }
-
-        .people-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(330px, 1fr));
-            gap: 1.8rem;
+        .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.2rem; margin-bottom: 1rem; }
+        .input-group { display: flex; flex-direction: column; gap: 6px; }
+        .input-group label { font-weight: 600; font-size: 0.85rem; color: var(--text-secondary); }
+        .input-group input, .input-group select {
+            padding: 0.7rem 1rem;
+            border-radius: 1.2rem;
+            border: 1px solid var(--border-light);
+            background: var(--input-bg);
+            color: var(--text-primary);
+            font-family: inherit;
+            font-size: 0.9rem;
         }
-
+        .languages-checkboxes { display: flex; flex-wrap: wrap; gap: 0.8rem; margin-top: 0.3rem; }
+        .lang-check {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--input-bg);
+            padding: 0.3rem 0.9rem;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            border: 1px solid var(--border-light);
+        }
+        .form-buttons { display: flex; gap: 1rem; justify-content: flex-end; margin-top: 1rem; }
+        .stats { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; margin-bottom: 1.5rem; }
+        .counter { font-weight: 600; background: var(--card-bg); padding: 0.3rem 1rem; border-radius: 40px; box-shadow: var(--shadow); }
+        .people-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(330px, 1fr)); gap: 1.8rem; }
         .person-card {
             background: var(--card-bg);
             border-radius: 1.8rem;
@@ -249,16 +125,8 @@
             display: flex;
             flex-direction: column;
         }
-
-        .person-card:hover {
-            transform: translateY(-4px);
-        }
-
-        .card-body {
-            padding: 1.5rem;
-            flex: 1;
-        }
-
+        .person-card:hover { transform: translateY(-4px); }
+        .card-body { padding: 1.5rem; flex: 1; }
         .person-name {
             font-size: 1.5rem;
             font-weight: 700;
@@ -269,7 +137,6 @@
             gap: 0.6rem;
             flex-wrap: wrap;
         }
-
         .admin-badge {
             background: var(--admin-badge);
             color: #1f2e45;
@@ -279,7 +146,6 @@
             border-radius: 40px;
             display: inline-block;
         }
-
         .person-profession {
             display: inline-block;
             background: rgba(59,130,246,0.2);
@@ -290,20 +156,8 @@
             color: var(--btn-primary);
             margin: 0.5rem 0;
         }
-
-        .person-exp {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin: 0.5rem 0;
-        }
-
-        .languages {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-            margin: 1rem 0;
-        }
-
+        .person-exp { font-size: 0.85rem; color: var(--text-secondary); margin: 0.5rem 0; }
+        .languages { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1rem 0; }
         .lang-tag {
             background: var(--input-bg);
             padding: 0.2rem 0.8rem;
@@ -313,13 +167,7 @@
             color: var(--text-secondary);
             border: 1px solid var(--border-light);
         }
-
-        .contact-buttons {
-            display: flex;
-            gap: 0.8rem;
-            margin: 1rem 0 0.5rem;
-        }
-
+        .contact-buttons { display: flex; gap: 0.8rem; margin: 1rem 0 0.5rem; }
         .contact-btn {
             display: inline-flex;
             align-items: center;
@@ -334,11 +182,8 @@
             transition: 0.2s;
             border: 1px solid var(--border-light);
         }
-
         .telegram-btn { background: #27A0E0; color: white; border: none; }
         .whatsapp-btn { background: #25D366; color: white; border: none; }
-        .telegram-btn:hover, .whatsapp-btn:hover { filter: brightness(0.92); }
-
         .card-actions {
             display: flex;
             gap: 0.8rem;
@@ -347,7 +192,6 @@
             padding: 1rem 1.5rem 1.2rem;
             background: var(--card-bg);
         }
-
         .edit-btn, .delete-btn {
             background: none;
             padding: 0.3rem 0.8rem;
@@ -358,7 +202,6 @@
         .delete-btn { background: #fee2e2; color: #b91c1c; }
         body.dark .edit-btn { background: #3e5568; color: #cbd5e1; }
         body.dark .delete-btn { background: #5f2a2a; color: #fecaca; }
-
         .modal {
             display: none;
             position: fixed;
@@ -380,9 +223,6 @@
             max-width: 400px;
             box-shadow: var(--shadow);
         }
-        .modal-content h3 {
-            margin-bottom: 1rem;
-        }
         .modal-content input {
             width: 100%;
             margin: 0.5rem 0;
@@ -392,25 +232,14 @@
             background: var(--input-bg);
             color: var(--text-primary);
         }
-        .modal-buttons {
-            display: flex;
-            justify-content: flex-end;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
+        .modal-buttons { display: flex; justify-content: flex-end; gap: 1rem; margin-top: 1rem; }
         @media (max-width: 640px) {
             .top-bar { padding: 0.8rem 1rem; }
             .container { padding: 0 1rem; }
             .form-card { padding: 1rem; }
             .people-grid { grid-template-columns: 1fr; }
         }
-        footer {
-            text-align: center;
-            margin-top: 2.5rem;
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-        }
+        footer { text-align: center; margin-top: 2.5rem; font-size: 0.75rem; color: var(--text-secondary); }
     </style>
 </head>
 <body>
@@ -453,14 +282,14 @@
         <span><i class="fas fa-database"></i> Админ ҳама сабтҳоро идора мекунад</span>
     </div>
     <div class="people-grid" id="peopleGrid"></div>
-    <footer><i class="far fa-copyright"></i> 2026 DEV IT TAJIKISTAN| Админ: MARKXHEX | Веб-сайт барои ёфтани кор.</footer>
+    <footer><i class="far fa-copyright"></i> 2026 DEV IT TAJIKISTAN | Админ: admin@example.com / mark201314 | Веб-сайт барои ёфтани кор</footer>
 </div>
 
 <!-- Auth Modals -->
 <div id="loginModal" class="modal">
     <div class="modal-content">
         <h3>Воридшавӣ</h3>
-        <input type="text" id="loginUsername" placeholder="Номи корбарӣ">
+        <input type="text" id="loginUsername" placeholder="Почтаи электронӣ">
         <input type="password" id="loginPassword" placeholder="Парол">
         <div class="modal-buttons">
             <button id="closeLoginBtn" class="btn-secondary">Бекор</button>
@@ -472,7 +301,7 @@
 <div id="registerModal" class="modal">
     <div class="modal-content">
         <h3>Сабти ном</h3>
-        <input type="text" id="regUsername" placeholder="Номи корбарӣ">
+        <input type="text" id="regUsername" placeholder="Почтаи электронӣ">
         <input type="password" id="regPassword" placeholder="Парол">
         <div class="modal-buttons">
             <button id="closeRegBtn" class="btn-secondary">Бекор</button>
@@ -482,20 +311,28 @@
     </div>
 </div>
 
-<script>
-    // ---------- CONSTANTS ----------
-    const ADMIN_USERNAME = "admin";
-    const ADMIN_PASSWORD = "mark201314";
-    const ADMIN_ID = 1;
+<!-- Firebase SDKs -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+    import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+    import { getDatabase, ref, set, get, onValue, push, remove, update, query, orderByChild } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
 
-    let users = [];
-    let entries = [];
-    let currentUserId = null;
-    let editEntryId = null;
+    // Маълумоти Firebase-и худро дар ин ҷо гузоред
+    const firebaseConfig = {
+        apiKey: "AIzaSy...",        // <-- иваз кунед
+        authDomain: "dev-portfolio-free.firebaseapp.com",
+        databaseURL: "https://dev-portfolio-free-default-rtdb.europe-west1.firebasedatabase.app/",
+        projectId: "dev-portfolio-free",
+        storageBucket: "dev-portfolio-free.appspot.com",
+        messagingSenderId: "123456789012",
+        appId: "1:123456789012:web:abcdef1234567890"
+    };
 
-    const LANGUAGES = ["HTML/CSS", "JavaScript", "Python", "PHP", "Java", "Kotlin", "Swift", "C#", "Dart (Flutter)", "React Native", "SQL", "Go"];
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getDatabase(app);
 
-    // DOM elements
+    // DOM элементҳо
     const formContainer = document.getElementById('formContainer');
     const firstNameInp = document.getElementById('firstName');
     const lastNameInp = document.getElementById('lastName');
@@ -511,50 +348,15 @@
     const totalCountSpan = document.getElementById('totalCount');
     const authSection = document.getElementById('authSection');
 
-    // Theme
-    const themeToggle = document.getElementById('themeToggle');
-    function updateThemeIcon() {
-        const isDark = document.body.classList.contains('dark');
-        themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
-    }
-    if(localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
-    updateThemeIcon();
-    themeToggle.addEventListener('click', () => {
-        document.body.classList.toggle('dark');
-        localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
-        updateThemeIcon();
-    });
+    const LANGUAGES = ["HTML/CSS", "JavaScript", "Python", "PHP", "Java", "Kotlin", "Swift", "C#", "Dart (Flutter)", "React Native", "SQL", "Go"];
 
-    // Data persistence
-    function saveData() {
-        localStorage.setItem('dev_users', JSON.stringify(users));
-        localStorage.setItem('dev_entries', JSON.stringify(entries));
-    }
+    let currentUser = null;
+    let isAdmin = false;
+    let entries = [];
+    let editEntryId = null;
 
-    function loadData() {
-        const storedUsers = localStorage.getItem('dev_users');
-        const storedEntries = localStorage.getItem('dev_entries');
-        if(storedUsers) users = JSON.parse(storedUsers);
-        else users = [];
+    function escapeHtml(str) { if (!str) return ''; return str.replace(/[&<>]/g, m => m === '&' ? '&amp;' : m === '<' ? '&lt;' : m === '>' ? '&gt;' : m); }
 
-        if(storedEntries) entries = JSON.parse(storedEntries);
-        else entries = [];
-
-        // Ensure admin exists
-        const adminExists = users.some(u => u.id === ADMIN_ID && u.username === ADMIN_USERNAME);
-        if(!adminExists) {
-            users = users.filter(u => u.id !== ADMIN_ID); // remove any conflicting
-            users.unshift({ id: ADMIN_ID, username: ADMIN_USERNAME, password: ADMIN_PASSWORD });
-            saveData();
-        }
-    }
-
-    // Helper: check if current user is admin
-    function isAdmin() {
-        return currentUserId === ADMIN_ID;
-    }
-
-    // Language checkboxes
     function renderLanguagesCheckboxes(selected = []) {
         languagesContainer.innerHTML = '';
         LANGUAGES.forEach(lang => {
@@ -609,51 +411,6 @@
         cancelBtn.style.display = 'inline-flex';
     }
 
-    function saveEntry() {
-        if (!currentUserId) { alert("Лутфан аввал ворид шавед"); return; }
-        const data = getFormData();
-        if (!data.firstName || !data.lastName || !data.telegram || !data.whatsapp) {
-            alert("Лутфан ҳамаи чизҳоро ҳатмиро пур кунед (ном, фамилия, Telegram, WhatsApp)");
-            return;
-        }
-        if (editEntryId !== null) {
-            const index = entries.findIndex(e => e.id === editEntryId);
-            if (index === -1) { alert("Сабт ёфт нашуд"); return; }
-            const entry = entries[index];
-            // Permission: admin or owner
-            if (!isAdmin() && entry.userId !== currentUserId) {
-                alert("Шумо наметавонед ин сабтро вироиш кунед");
-                return;
-            }
-            entries[index] = { ...entry, ...data, id: editEntryId, userId: entry.userId }; // preserve original owner
-            saveData();
-            resetForm();
-            renderGrid();
-        } else {
-            const newId = Date.now();
-            entries.push({ id: newId, userId: currentUserId, ...data });
-            saveData();
-            resetForm();
-            renderGrid();
-        }
-    }
-
-    function deleteEntry(entryId) {
-        if (!currentUserId) return;
-        const entry = entries.find(e => e.id === entryId);
-        if (!entry) return;
-        if (!isAdmin() && entry.userId !== currentUserId) {
-            alert("Шумо наметавонед ин сабтро нест кунед");
-            return;
-        }
-        if (confirm("Оё боварӣ доред, ки ин сабтро нест мекунед?")) {
-            entries = entries.filter(e => e.id !== entryId);
-            saveData();
-            if (editEntryId === entryId) resetForm();
-            renderGrid();
-        }
-    }
-
     function renderGrid() {
         if (entries.length === 0) {
             peopleGrid.innerHTML = `<div style="text-align:center; padding:2rem; background:var(--card-bg); border-radius:2rem;">Ҳеҷ мутахассисе нест. Аввал шахсро илова кунед.</div>`;
@@ -665,7 +422,7 @@
         entries.forEach(entry => {
             const fullName = `${entry.firstName} ${entry.lastName}`;
             let profDisplay = '';
-            switch(entry.profession) {
+            switch (entry.profession) {
                 case 'web-site': profDisplay = '🌐 Веб-сайтсоз'; break;
                 case 'android': profDisplay = '📱 Android Creator'; break;
                 case 'ios': profDisplay = '🍏 IOS Creator'; break;
@@ -673,17 +430,15 @@
                 case 'bot': profDisplay = '🤖 Bot Developer'; break;
                 default: profDisplay = entry.profession;
             }
-            const langTags = entry.languages.map(l => `<span class="lang-tag">${escapeHtml(l)}</span>`).join('');
+            const langTags = (entry.languages || []).map(l => `<span class="lang-tag">${escapeHtml(l)}</span>`).join('');
             const tgLink = `https://t.me/${entry.telegram.replace('@', '')}`;
             const waLink = `https://wa.me/${entry.whatsapp.replace(/\D/g, '')}`;
-            const canEdit = isAdmin() || entry.userId === currentUserId;
-            const isOwnerAdmin = entry.userId === ADMIN_ID;
+            const canEdit = isAdmin || (currentUser && entry.userId === currentUser.uid);
             html += `
                 <div class="person-card">
                     <div class="card-body">
                         <div class="person-name">
                             ${escapeHtml(fullName)}
-                            ${isOwnerAdmin ? '<span class="admin-badge"><i class="fas fa-crown"></i> Админ</span>' : ''}
                         </div>
                         <div class="person-profession">${profDisplay}</div>
                         <div class="person-exp"><i class="fas fa-calendar-alt"></i> Таҷриба: ${entry.experienceYears} сол</div>
@@ -704,52 +459,128 @@
         });
         peopleGrid.innerHTML = html;
         document.querySelectorAll('.edit-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const id = parseInt(btn.dataset.id);
+            btn.addEventListener('click', async (e) => {
+                const id = btn.dataset.id;
                 const entry = entries.find(e => e.id === id);
-                if (entry && (isAdmin() || entry.userId === currentUserId)) {
+                if (entry && (isAdmin || entry.userId === currentUser.uid)) {
                     fillFormForEdit(entry);
                     formContainer.scrollIntoView({ behavior: 'smooth' });
                 } else alert("Шумо наметавонед ин сабтро вироиш кунед");
             });
         });
         document.querySelectorAll('.delete-btn').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const id = parseInt(btn.dataset.id);
-                deleteEntry(id);
+            btn.addEventListener('click', async (e) => {
+                const id = btn.dataset.id;
+                if (confirm("Оё боварӣ доред, ки ин сабтро нест мекунед?")) {
+                    await deleteEntry(id);
+                }
             });
         });
     }
 
-    function escapeHtml(str) { 
-        if (!str) return '';
-        return str.replace(/[&<>]/g, function(m){
-            if(m === '&') return '&amp;';
-            if(m === '<') return '&lt;';
-            if(m === '>') return '&gt;';
-            return m;
+    async function loadEntries() {
+        const entriesRef = ref(db, 'entries');
+        onValue(entriesRef, (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                entries = Object.entries(data).map(([id, value]) => ({ id, ...value }));
+                entries.sort((a,b) => (b.createdAt || 0) - (a.createdAt || 0));
+            } else {
+                entries = [];
+            }
+            renderGrid();
         });
     }
 
-    // Auth UI
-    function updateAuthUI() {
-        if (currentUserId) {
-            const user = users.find(u => u.id === currentUserId);
-            const adminNote = isAdmin() ? ' (Админ)' : '';
-            authSection.innerHTML = `<span class="user-greeting"> ${escapeHtml(user.username)} ${adminNote}</span><button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Баромад</button>`;
-            document.getElementById('logoutBtn').addEventListener('click', () => { 
-                currentUserId = null; 
-                updateAuthUI(); 
-                formContainer.style.display = 'none'; 
-                resetForm(); 
-                renderGrid(); 
+    async function saveEntry() {
+        if (!currentUser) { alert("Лутфан аввал ворид шавед"); return; }
+        const data = getFormData();
+        if (!data.firstName || !data.lastName || !data.telegram || !data.whatsapp) {
+            alert("Лутфан ҳамаи майдонҳои ҳатмиро пур кунед");
+            return;
+        }
+        const entryData = {
+            ...data,
+            userId: currentUser.uid,
+            createdAt: Date.now()
+        };
+        try {
+            if (editEntryId) {
+                await update(ref(db, `entries/${editEntryId}`), entryData);
+            } else {
+                const newRef = push(ref(db, 'entries'));
+                await set(newRef, entryData);
+            }
+            resetForm();
+        } catch (e) {
+            alert("Хатогӣ: " + e.message);
+        }
+    }
+
+    async function deleteEntry(id) {
+        try {
+            await remove(ref(db, `entries/${id}`));
+            if (editEntryId === id) resetForm();
+        } catch (e) {
+            alert("Хатогӣ: " + e.message);
+        }
+    }
+
+    async function register(email, password) {
+        try {
+            const userCred = await createUserWithEmailAndPassword(auth, email, password);
+            await set(ref(db, `users/${userCred.user.uid}`), {
+                email: email,
+                isAdmin: false,
+                createdAt: Date.now()
             });
+            alert("Сабти ном муваффақиятом! Акнун ворид шавед.");
+            hideModals();
+            showModal('login');
+        } catch (e) {
+            alert("Хатогӣ: " + e.message);
+        }
+    }
+
+    async function login(email, password) {
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            hideModals();
+        } catch (e) {
+            alert("Номи корбарӣ ё парол нодуруст");
+        }
+    }
+
+    async function logout() {
+        await signOut(auth);
+    }
+
+    onAuthStateChanged(auth, async (user) => {
+        currentUser = user;
+        if (user) {
+            const userSnap = await get(ref(db, `users/${user.uid}`));
+            isAdmin = userSnap.exists() && userSnap.val().isAdmin === true;
+            updateAuthUI();
             formContainer.style.display = 'block';
+        } else {
+            currentUser = null;
+            isAdmin = false;
+            updateAuthUI();
+            formContainer.style.display = 'none';
+            resetForm();
+        }
+        renderGrid();
+    });
+
+    function updateAuthUI() {
+        if (currentUser) {
+            const adminNote = isAdmin ? ' (Админ)' : '';
+            authSection.innerHTML = `<span class="user-greeting"> ${escapeHtml(currentUser.email)}${adminNote}</span><button class="logout-btn" id="logoutBtn"><i class="fas fa-sign-out-alt"></i> Баромад</button>`;
+            document.getElementById('logoutBtn').addEventListener('click', () => logout());
         } else {
             authSection.innerHTML = `<button id="showLoginBtn"><i class="fas fa-sign-in-alt"></i> Воридшавӣ</button><button id="showRegisterBtn"><i class="fas fa-user-plus"></i> Сабти ном</button>`;
             document.getElementById('showLoginBtn').addEventListener('click', () => showModal('login'));
             document.getElementById('showRegisterBtn').addEventListener('click', () => showModal('register'));
-            formContainer.style.display = 'none';
         }
     }
 
@@ -757,63 +588,39 @@
         if (type === 'login') document.getElementById('loginModal').style.display = 'flex';
         else document.getElementById('registerModal').style.display = 'flex';
     }
-    function hideModals() { 
-        document.getElementById('loginModal').style.display = 'none'; 
-        document.getElementById('registerModal').style.display = 'none'; 
+    function hideModals() {
+        document.getElementById('loginModal').style.display = 'none';
+        document.getElementById('registerModal').style.display = 'none';
     }
 
-    function login(username, password) {
-        const user = users.find(u => u.username === username && u.password === password);
-        if (user) { 
-            currentUserId = user.id; 
-            updateAuthUI(); 
-            renderGrid(); 
-            hideModals(); 
-            resetForm(); 
-        } else {
-            alert("Номи корбарӣ ё парол нодуруст");
-        }
-    }
-
-    function register(username, password) {
-        if (!username.trim() || !password.trim()) {
-            alert("Лутфан номи корбарӣ ва паролро ворид кунед");
-            return;
-        }
-        if (users.find(u => u.username === username)) { 
-            alert("Ин номи корбарӣ аллакай вуҷуд дорад"); 
-            return; 
-        }
-        const newId = Date.now();
-        users.push({ id: newId, username, password });
-        saveData();
-        alert("Сабти ном муваффақиятом! Акнун ворид шавед.");
-        hideModals();
-        showModal('login');
-    }
-
-    // Event listeners for modals
     document.getElementById('closeLoginBtn').onclick = () => hideModals();
     document.getElementById('closeRegBtn').onclick = () => hideModals();
-    document.getElementById('confirmLoginBtn').onclick = () => { 
-        login(document.getElementById('loginUsername').value, document.getElementById('loginPassword').value); 
+    document.getElementById('confirmLoginBtn').onclick = () => {
+        login(document.getElementById('loginUsername').value, document.getElementById('loginPassword').value);
     };
-    document.getElementById('confirmRegBtn').onclick = () => { 
-        register(document.getElementById('regUsername').value, document.getElementById('regPassword').value); 
+    document.getElementById('confirmRegBtn').onclick = () => {
+        register(document.getElementById('regUsername').value, document.getElementById('regPassword').value);
     };
     document.getElementById('switchToRegister').onclick = (e) => { e.preventDefault(); hideModals(); showModal('register'); };
     document.getElementById('switchToLogin').onclick = (e) => { e.preventDefault(); hideModals(); showModal('login'); };
-
     saveBtn.addEventListener('click', saveEntry);
     cancelBtn.addEventListener('click', resetForm);
 
-    function init() {
-        loadData();
-        renderLanguagesCheckboxes([]);
-        updateAuthUI();
-        renderGrid();
+    const themeToggle = document.getElementById('themeToggle');
+    function updateThemeIcon() {
+        const isDark = document.body.classList.contains('dark');
+        themeToggle.innerHTML = isDark ? '<i class="fas fa-sun"></i>' : '<i class="fas fa-moon"></i>';
     }
-    init();
+    if (localStorage.getItem('theme') === 'dark') document.body.classList.add('dark');
+    updateThemeIcon();
+    themeToggle.addEventListener('click', () => {
+        document.body.classList.toggle('dark');
+        localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+        updateThemeIcon();
+    });
+
+    renderLanguagesCheckboxes([]);
+    loadEntries();
 </script>
 </body>
 </html>
